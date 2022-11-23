@@ -1,0 +1,27 @@
+.headerContainer {
+    padding-left: 40px;
+    display: flex;
+    justify-content: space-around;
+
+    button {
+        margin-right: 5px;
+    }
+
+    .buttonEditGroup {
+        margin-right: 10px;
+
+    }
+
+    .buttonControlGroup {
+        margin-right: 15px;
+    }
+
+    .buttonDisplayGroup {
+        margin-right: 10px;
+    }
+    .buttonConnectionGroup {
+        display: flex;
+        align-items: center;
+        
+    }
+}
