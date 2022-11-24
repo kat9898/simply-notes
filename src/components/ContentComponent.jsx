@@ -2,8 +2,12 @@ import React from 'react'
 
 import './ContentComponent.scss';
 
-function ContentComponent({time, activeNote, onUpdateNote}) {
-    const handleName = (e) => {
+function ContentComponent({activeNote, onUpdateNote}) {
+  const monthNames = ["January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+  
+  const handleName = (e) => {
       onUpdateNote({
         id: activeNote.id,
         name: e.target.value,
@@ -26,23 +30,19 @@ function ContentComponent({time, activeNote, onUpdateNote}) {
     //   minute: "2-digit"
     // }));  "DD Month YYYY, HH:MM" `${activeNote.time.getDate()} ${} ${}, ${}`
 
-    const date = new Date(activeNote.time);
-    console.log(date.getDate());
-    console.log(date.getMonth());
-    console.log(date.getYear());
-    console.log(date.getHours());
-    console.log(date.getMinutes());
+    const date = activeNote ? new Date(activeNote.time) : "";
 
   return (
     <div className='contentContainer'>
-        <div className='data'>23 November 2022, 23:18 {new Date(time).toLocaleDateString("en-GB", {
+        <div className='data'>{date ? date.toLocaleDateString("en-GB", {
+          day: 'numeric',
+          year: 'numeric',
+          month: 'long',
           hour: "2-digit",
           minute: "2-digit"
-        })}</div>
-        {/* <input className='nameInput' type="text" placeholder='Name' onChange={handleName} autoFocus />
-        <textarea className='textInput' onChange={handleText} placeholder="Write your note here..." /> */}
-        <input className='nameInput' value={activeNote.name} type="text" placeholder='Name' onChange={handleName} autoFocus />
-        <textarea className='textInput' value={activeNote.text} onChange={handleText} placeholder="Write your note here..." />
+        }): ""}</div>
+        <input className='nameInput' value={activeNote ? activeNote.name : ""} type="text" placeholder='Name' onChange={handleName} autoFocus />
+        <textarea className='textInput' value={activeNote ? activeNote.text: ""} onChange={handleText} placeholder="Write your note here..." />
     </div>
   )
 }

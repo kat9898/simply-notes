@@ -19,11 +19,9 @@ function Home() {
   const [time, setTime] = useState("");
   const [text, setText] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  console.log('name', name);
-  console.log('text', text);
-  console.log('notes', notes);
 
   const showModal = () => {
+    console.log(isModalOpen);
     setIsModalOpen(true);
   };
 
@@ -45,7 +43,7 @@ function Home() {
       await db.notes.add({
         name: 'Untitled Note',
         time: Date.now(),
-        text: 'ahrhaergirgkfsthhjk'
+        text: ''
       });
 
       // await db.notes.add({
@@ -74,12 +72,15 @@ function Home() {
 
   async function deleteNote() {
     try {
-      await db.notes.delete(id);
-      const activeNote = db.notes.toArray()[0];
-      setId(activeNote.id);
-      setName(activeNote.name);
-      setTime(activeNote.date);
-      setText(activeNote.text);
+      console.log(activeNote);
+      await db.notes.delete(activeNote);
+      const newNotes = notes.filter(note => note.id != activeNote);
+      setNotes(newNotes);
+      //const activeNote = db.notes.toArray()[0];
+      // setId(activeNote.id);
+      // setName(activeNote.name);
+      // setTime(activeNote.date);
+      // setText(activeNote.text);
     } catch (error) {
       console.log(`Failed to delete note: ${error}`);
     }
@@ -111,13 +112,18 @@ function Home() {
   }, [])
 
   return (
+    <>
     <Layout>
-      <Header className='header' style={{background: "linear-gradient(to bottom, #eeeeee, #cacaca)"}}><HeaderContent addNote={addNote} deleteNote={deleteNote} /></Header>
-      <Layout>
-        <Sider style={{background: "#f9f7f7"}}><Sidebar notes={notes} activeNote={activeNote} setActiveNote={setActiveNote} /></Sider>
-        <Content><ContentComponent name={name} time={time} text={text} setName={setName} setText={setText} onUpdateNote={onUpdateNote} activeNote={getActiveNote() } /></Content>
+      <Header className='header' style={{background: "linear-gradient(to bottom, #eeeeee, #cacaca)"}}><HeaderContent addNote={addNote} showModal={showModal} /></Header>
+        <Layout>
+          <Sider style={{background: "#f9f7f7"}}><Sidebar notes={notes} activeNote={activeNote} setActiveNote={setActiveNote} /></Sider>
+          <Content><ContentComponent name={name} time={time} text={text} setName={setName} setText={setText} onUpdateNote={onUpdateNote} activeNote={getActiveNote() } /></Content>
+        </Layout>
       </Layout>
-    </Layout>
+      <Modal title="Confirm delete" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+        <p>Are you sure you want to delete this note?</p>
+      </Modal>
+    </>
   )
 }
 
