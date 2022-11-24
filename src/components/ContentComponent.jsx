@@ -12,7 +12,7 @@ function ContentComponent({activeNote, onUpdateNote}) {
         id: activeNote.id,
         name: e.target.value,
         text: activeNote.text,
-        time: activeNote.time
+        time: Date.now()
       });
     };
 
@@ -21,7 +21,7 @@ function ContentComponent({activeNote, onUpdateNote}) {
         id: activeNote.id,
         name: activeNote.name,
         text: e.target.value,
-        time: activeNote.time
+        time: Date.now()
       });
     }; 
     // console.log(time);

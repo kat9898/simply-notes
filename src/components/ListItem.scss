@@ -17,13 +17,20 @@
         margin: 0;
     }
 
-    p {
-        height: 25px;
-        margin: 0;
+    .noteText {
         -webkit-line-clamp: 1;
         display: -webkit-box; 
         -webkit-box-orient: vertical; 
         overflow: hidden;
+    }
+
+    p {
+        height: 23px;
+        margin: 0;
+        // -webkit-line-clamp: 1;
+        // display: -webkit-box; 
+        // -webkit-box-orient: vertical; 
+        // overflow: hidden;
     }
 
     span {

@@ -30,11 +30,12 @@ function ListItem({data, activeNote, setActiveNote}) {
 
   return (
     <List.Item onClick={() => setActiveNote(data.id)}
-      className={`itemContainer ${data.id === activeNote && "active"}`}
+      className={`${data.id === activeNote && "active"}`}
+      style={{width: "100%"}}
       >
-      <div>
-        <p className='noteName'>{data.name}</p>
-        <p>{getDate(data.time)}  <span>{data.text}</span></p>
+      <div className='itemContainer'>
+        <p className='noteName'>{data.name.length > 17 ? data.name.substr(0, 17) + '...' : data.name}</p>
+        <p className='noteText'>{getDate(data.time)}  <span>{data.text}</span></p>
       </div>
     </List.Item> 
   )

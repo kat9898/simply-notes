@@ -18,6 +18,10 @@ function Home() {
 
   const filteredNotes = notes.filter(note => note.name.toLowerCase().includes(search.toLowerCase()));
 
+  const sortedNotes = filteredNotes.sort((a, b) => {
+    return b.time - a.time
+  });
+
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -104,11 +108,11 @@ function Home() {
 
   return (
     <>
-    <Layout>
+    <Layout style={{height: "100%"}}>
       <Header className='header' style={{background: "linear-gradient(to bottom, #eeeeee, #cacaca)"}}><HeaderContent setSearch={setSearch} addNote={addNote} showModal={showModal} /></Header>
         <Layout>
-          <Sider style={{background: "#f9f7f7"}}><Sidebar filteredNotes={filteredNotes} activeNote={activeNote} setActiveNote={setActiveNote} /></Sider>
-          <Content><ContentComponent onUpdateNote={onUpdateNote} activeNote={getActiveNote() } /></Content>
+          <Sider style={{background: "#f9f7f7", overflow: "auto"}}><Sidebar sortedNotes={sortedNotes} activeNote={activeNote} setActiveNote={setActiveNote} /></Sider>
+          <Content><ContentComponent onUpdateNote={onUpdateNote} activeNote={getActiveNote() } /></Content> 
         </Layout>
       </Layout>
       <Modal title="Confirm delete" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
