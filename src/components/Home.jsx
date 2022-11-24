@@ -36,21 +36,19 @@ function Home() {
 
   async function addNote() {
     try {
-      // setName("Untitled Note");
-      // setTime(new Date(Date.now()));
-      // setText("ahrhaergirgkfsthhjk");
-
       await db.notes.add({
         name: 'Untitled Note',
         time: Date.now(),
         text: ''
       });
 
-      // await db.notes.add({
-      //   name,
-      //   time,
-      //   text
-      // });
+      const newNotes = await db.notes.toArray();
+      const newNote = newNotes[newNotes.length - 1];
+      console.log(newNotes);
+      console.log(newNote);
+
+      setNotes(newNotes);
+      setActiveNote(newNote.id);
     } catch (error) {
       console.log(`Failed to add note: ${error}`);
     }

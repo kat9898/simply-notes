@@ -1,11 +1,16 @@
 .active {
     background-color: #C7C7C7;
+    text-align: left;
 }
 
 .itemContainer {
     display: flex;
     flex-direction: column;
     text-align: left;
+    justify-content: left;
+    align-items: flex-start;
+    padding-left: 0;
+    margin-left: 0;
     
     .noteName {
         font-weight: bold;

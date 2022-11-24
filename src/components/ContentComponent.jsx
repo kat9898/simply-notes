@@ -6,7 +6,7 @@ function ContentComponent({activeNote, onUpdateNote}) {
   const monthNames = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
   ];
-  
+  console.log(activeNote);
   const handleName = (e) => {
       onUpdateNote({
         id: activeNote.id,
