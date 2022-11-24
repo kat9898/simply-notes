@@ -2,7 +2,7 @@ import React from 'react'
 
 import './ContentComponent.scss';
 
-function ContentComponent({activeNote, editNote}) {
+function ContentComponent({activeNote, editNote, editMode}) {
   const monthNames = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
   ];
@@ -41,8 +41,8 @@ function ContentComponent({activeNote, editNote}) {
           hour: "2-digit",
           minute: "2-digit"
         }): ""}</div>
-        <input className='nameInput' value={activeNote ? activeNote.name : ""} type="text" placeholder='Name' onChange={handleName} autoFocus />
-        <textarea className='textInput' value={activeNote ? activeNote.text: ""} onChange={handleText} placeholder="Write your note here..." />
+        <input className='nameInput' value={activeNote ? activeNote.name : ""} type="text" disabled={editMode ? false : true} placeholder={editMode ? 'Name' : ""} onChange={handleName} autoFocus />
+        <textarea className='textInput' disabled={editMode ? false : true} value={activeNote ? activeNote.text: ""} onChange={handleText} placeholder={editMode ? "Write your note here..." : ""} />
     </div>
   )
 }

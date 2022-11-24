@@ -17,6 +17,8 @@ function Home() {
   const [activeNote, setActiveNote] = useState(0);
   const [search, setSearch] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editMode, setEditMode] = useState(true);
+  console.log(editMode);
 
   const filteredNotes = notes.filter(note => note.name.toLowerCase().includes(search.toLowerCase()));
 
@@ -100,11 +102,11 @@ function Home() {
   return (
     <>
     <Layout style={{height: "100%"}}>
-      <Header className='header' style={{background: "linear-gradient(to bottom, #eeeeee, #cacaca)"}}><HeaderContent setSearch={setSearch} addNote={addNote} showModal={showModal} /></Header>
+      <Header className='header' style={{background: "linear-gradient(to bottom, #eeeeee, #cacaca)"}}><HeaderContent setEditMode={setEditMode} setSearch={setSearch} addNote={addNote} showModal={showModal} /></Header>
         <Layout>
           <ActiveNoteContext.Provider value={{activeNote, setActiveNote}}>
             <Sider style={{background: "#f9f7f7", overflow: "auto"}}><Sidebar sortedNotes={sortedNotes} /></Sider>
-            <Content><ContentComponent editNote={editNote} activeNote={getActiveNote() } /></Content> 
+            <Content><ContentComponent editNote={editNote} activeNote={getActiveNote() } editMode={editMode} /></Content> 
           </ActiveNoteContext.Provider>
         </Layout>
       </Layout>
