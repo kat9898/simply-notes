@@ -4,7 +4,7 @@ import { Button, Input } from 'antd';
 
 import './HeaderContent.scss';
 
-function HeaderContent() {
+function HeaderContent({addNote, deleteNote}) {
   return (
     <div className='headerContainer'>
         <div className='buttonDisplayGroup'>
@@ -12,8 +12,8 @@ function HeaderContent() {
         </div>
         <div className='buttonEditGroup'>
             <Button icon={<PushpinOutlined />} href="https://www.google.com" style={{marginRight: "5px", width: "45px"}} />
-            <Button icon={<DeleteOutlined />} href="https://www.google.com" style={{marginRight: "5px", width: "45px"}} />
-            <Button icon={<FormOutlined />} href="https://www.google.com" style={{marginRight: "5px", width: "45px"}} />
+            <Button icon={<DeleteOutlined onClick={deleteNote} />} href="https://www.google.com" style={{marginRight: "5px", width: "45px"}} />
+            <Button onClick={addNote} icon={<FormOutlined />} href="https://www.google.com" style={{marginRight: "5px", width: "45px"}} />
         </div>
         <div className='buttonControlGroup'>
             <Button icon={<LockOutlined />} href="https://www.google.com" style={{marginRight: "5px", width: "45px"}} />

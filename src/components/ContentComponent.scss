@@ -1,0 +1,44 @@
+.contentContainer {
+    display: flex;
+    flex-direction: column;
+    padding: 5px 30px 30px 30px;
+
+    .data {
+        color: gray;
+        font-size: 12px;
+        margin-bottom: 20px;
+    }
+
+    .nameInput {
+        font-weight: bold;
+        font-size: 15px;
+        border: none;
+        background-color: transparent;
+
+        &:active {
+            background-color: transparent;
+            outline: none;
+        }
+
+        &:focus {
+            background-color: transparent;
+            outline: none;
+        }
+    }
+
+    .textInput {
+        min-height: 300px;
+        border: none;
+        background-color: transparent;
+
+        &:active {
+            background-color: transparent;
+            outline: none;
+        }
+
+        &:focus {
+            background-color: transparent;
+            outline: none;
+        }
+    }
+}

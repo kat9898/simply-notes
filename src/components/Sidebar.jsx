@@ -41,14 +41,14 @@ const data = [
 // ];
 
 
-function Sidebar() {
+function Sidebar({notes, activeNote, setActiveNote}) {
   return (
     <div className='sidebarContainer'>
       <List
         size="large"
         bordered
-        dataSource={data}
-        renderItem={(item) => <ListItem data={item} />}
+        dataSource={notes}
+        renderItem={(item) => <ListItem data={item} activeNote={activeNote} setActiveNote={setActiveNote} />}
       />
     </div>
   )
