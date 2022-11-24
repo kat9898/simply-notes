@@ -5,14 +5,14 @@ import ListItem from './ListItem';
 import './Sidebar.scss';
 
 
-function Sidebar({sortedNotes, activeNote, setActiveNote}) {
+function Sidebar({sortedNotes}) {
   return (
     <div className='sidebarContainer'>
       <List
         size="large"
         bordered
         dataSource={sortedNotes}
-        renderItem={(item) => <ListItem data={item} activeNote={activeNote} setActiveNote={setActiveNote} />}
+        renderItem={(item) => <ListItem data={item} />}
       />
     </div>
   )

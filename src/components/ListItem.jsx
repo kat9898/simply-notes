@@ -1,11 +1,10 @@
 import React from 'react';
-import { List} from 'antd';
+import {List} from 'antd';
+import {ActiveNoteContext} from './Home';
 
 import './ListItem.scss';
 
-function ListItem({data, activeNote, setActiveNote}) {
-  
-
+function ListItem({data}) {
   const getDate = (rowDate) => {
     if (rowDate != undefined && rowDate != "" ) {
       const date = new Date(rowDate);
@@ -29,15 +28,17 @@ function ListItem({data, activeNote, setActiveNote}) {
   }
 
   return (
-    <List.Item onClick={() => setActiveNote(data.id)}
-      className={`${data.id === activeNote && "active"}`}
-      style={{width: "100%"}}
-      >
-      <div className='itemContainer'>
-        <p className='noteName'>{data.name.length > 17 ? data.name.substr(0, 17) + '...' : data.name}</p>
-        <p className='noteText'>{getDate(data.time)}  <span>{data.text}</span></p>
-      </div>
-    </List.Item> 
+    <ActiveNoteContext.Consumer>
+      { value => <List.Item onClick={() => value.setActiveNote(data.id)}
+        className={`${data.id === value.activeNote && "active"}`}
+        style={{width: "100%"}}
+        >
+        <div className='itemContainer'>
+          <p className='noteName'>{data.name.length > 17 ? data.name.substr(0, 17) + '...' : data.name}</p>
+          <p className='noteText'>{getDate(data.time)}  <span>{data.text}</span></p>
+        </div>
+      </List.Item>}
+    </ActiveNoteContext.Consumer>
   )
 }
 

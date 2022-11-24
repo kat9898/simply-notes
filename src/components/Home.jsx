@@ -10,6 +10,8 @@ import './Home.scss'
 
 const { Header, Sider, Content } = Layout;
 
+export const ActiveNoteContext = React.createContext();
+
 function Home() {
   const [notes, setNotes] = useState([]);
   const [activeNote, setActiveNote] = useState(0);
@@ -54,20 +56,6 @@ function Home() {
     }
   }
 
-  const onUpdateNote = (updatedNote) => {
-    const updatedNotesArray = notes.map((note) => {
-      if (note.id === activeNote) {
-        return updatedNote;
-      }
-
-      editNote(updatedNote);
-
-      return note;
-    });
-
-    setNotes(updatedNotesArray);
-  }
-
   async function editNote(updatedNote) {
     try {
       await db.notes.put({
@@ -76,6 +64,10 @@ function Home() {
         text: updatedNote.text,
         time: updatedNote.time
       });
+
+      const newNotes = await db.notes.toArray();
+
+      setNotes(newNotes);
     } catch (error) {
       console.log(`Failed to edit note: ${error}`);
     }
@@ -84,9 +76,8 @@ function Home() {
   async function deleteNote() {
     try {
       await db.notes.delete(activeNote);
-      const newNotes = notes.filter(note => note.id != activeNote);
+      const newNotes = await db.notes.toArray();
       setNotes(newNotes);
-
     } catch (error) {
       console.log(`Failed to delete note: ${error}`);
     }
@@ -111,8 +102,10 @@ function Home() {
     <Layout style={{height: "100%"}}>
       <Header className='header' style={{background: "linear-gradient(to bottom, #eeeeee, #cacaca)"}}><HeaderContent setSearch={setSearch} addNote={addNote} showModal={showModal} /></Header>
         <Layout>
-          <Sider style={{background: "#f9f7f7", overflow: "auto"}}><Sidebar sortedNotes={sortedNotes} activeNote={activeNote} setActiveNote={setActiveNote} /></Sider>
-          <Content><ContentComponent onUpdateNote={onUpdateNote} activeNote={getActiveNote() } /></Content> 
+          <ActiveNoteContext.Provider value={{activeNote, setActiveNote}}>
+            <Sider style={{background: "#f9f7f7", overflow: "auto"}}><Sidebar sortedNotes={sortedNotes} /></Sider>
+            <Content><ContentComponent editNote={editNote} activeNote={getActiveNote() } /></Content> 
+          </ActiveNoteContext.Provider>
         </Layout>
       </Layout>
       <Modal title="Confirm delete" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>

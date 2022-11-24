@@ -2,13 +2,13 @@ import React from 'react'
 
 import './ContentComponent.scss';
 
-function ContentComponent({activeNote, onUpdateNote}) {
+function ContentComponent({activeNote, editNote}) {
   const monthNames = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
   ];
   console.log(activeNote);
   const handleName = (e) => {
-      onUpdateNote({
+    editNote({
         id: activeNote.id,
         name: e.target.value,
         text: activeNote.text,
@@ -17,7 +17,7 @@ function ContentComponent({activeNote, onUpdateNote}) {
     };
 
     const handleText = (e) => {
-      onUpdateNote({
+      editNote({
         id: activeNote.id,
         name: activeNote.name,
         text: e.target.value,
