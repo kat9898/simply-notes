@@ -4,7 +4,7 @@ import { Button, Input } from 'antd';
 
 import './HeaderContent.scss';
 
-function HeaderContent({addNote, showModal}) {
+function HeaderContent({setSearch, addNote, showModal}) {
   return (
     <div className='headerContainer'>
         <div className='buttonDisplayGroup'>
@@ -25,7 +25,9 @@ function HeaderContent({addNote, showModal}) {
             <Button icon={<PictureOutlined />} style={{marginRight: "5px", width: "65px"}} />
             <Button icon={<UserAddOutlined />} style={{marginRight: "5px", width: "65px"}} />
             <Button icon={<ImportOutlined />} style={{marginRight: "5px", width: "65px"}} />
-            <Input placeholder="Search" prefix={<SearchOutlined />} />
+            <Input placeholder="Search" onChange={(e) => {
+                setSearch(e.target.value)
+                }} prefix={<SearchOutlined />} />
         </div>
         
         

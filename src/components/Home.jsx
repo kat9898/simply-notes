@@ -13,15 +13,13 @@ const { Header, Sider, Content } = Layout;
 function Home() {
   const [notes, setNotes] = useState([]);
   const [activeNote, setActiveNote] = useState(0);
-
-  const [id, setId] = useState("");
-  const [name, setName] = useState("");
-  const [time, setTime] = useState("");
-  const [text, setText] = useState("");
+  const [search, setSearch] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const filteredNotes = notes.filter(note => note.name.toLowerCase().includes(search.toLowerCase()));
+
+
   const showModal = () => {
-    console.log(isModalOpen);
     setIsModalOpen(true);
   };
 
@@ -44,8 +42,6 @@ function Home() {
 
       const newNotes = await db.notes.toArray();
       const newNote = newNotes[newNotes.length - 1];
-      console.log(newNotes);
-      console.log(newNote);
 
       setNotes(newNotes);
       setActiveNote(newNote.id);
@@ -68,34 +64,31 @@ function Home() {
     setNotes(updatedNotesArray);
   }
 
-  async function deleteNote() {
-    try {
-      console.log(activeNote);
-      await db.notes.delete(activeNote);
-      const newNotes = notes.filter(note => note.id != activeNote);
-      setNotes(newNotes);
-      //const activeNote = db.notes.toArray()[0];
-      // setId(activeNote.id);
-      // setName(activeNote.name);
-      // setTime(activeNote.date);
-      // setText(activeNote.text);
-    } catch (error) {
-      console.log(`Failed to delete note: ${error}`);
-    }
-  }
-
   async function editNote(updatedNote) {
     try {
       await db.notes.put({
         id: updatedNote.id,
         name: updatedNote.name,
-        text: updatedNote.text
+        text: updatedNote.text,
+        time: updatedNote.time
       });
     } catch (error) {
       console.log(`Failed to edit note: ${error}`);
     }
   }
 
+  async function deleteNote() {
+    try {
+      await db.notes.delete(activeNote);
+      const newNotes = notes.filter(note => note.id != activeNote);
+      setNotes(newNotes);
+
+    } catch (error) {
+      console.log(`Failed to delete note: ${error}`);
+    }
+  }
+
+  
   const getActiveNote = () => {
     return notes.find((note) => note.id === activeNote);
   }
@@ -112,14 +105,14 @@ function Home() {
   return (
     <>
     <Layout>
-      <Header className='header' style={{background: "linear-gradient(to bottom, #eeeeee, #cacaca)"}}><HeaderContent addNote={addNote} showModal={showModal} /></Header>
+      <Header className='header' style={{background: "linear-gradient(to bottom, #eeeeee, #cacaca)"}}><HeaderContent setSearch={setSearch} addNote={addNote} showModal={showModal} /></Header>
         <Layout>
-          <Sider style={{background: "#f9f7f7"}}><Sidebar notes={notes} activeNote={activeNote} setActiveNote={setActiveNote} /></Sider>
-          <Content><ContentComponent name={name} time={time} text={text} setName={setName} setText={setText} onUpdateNote={onUpdateNote} activeNote={getActiveNote() } /></Content>
+          <Sider style={{background: "#f9f7f7"}}><Sidebar filteredNotes={filteredNotes} activeNote={activeNote} setActiveNote={setActiveNote} /></Sider>
+          <Content><ContentComponent onUpdateNote={onUpdateNote} activeNote={getActiveNote() } /></Content>
         </Layout>
       </Layout>
       <Modal title="Confirm delete" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-        <p>Are you sure you want to delete this note?</p>
+        <p>Are you sure you want to delete this note?</p> 
       </Modal>
     </>
   )
