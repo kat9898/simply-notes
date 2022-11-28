@@ -38,10 +38,6 @@ function HeaderContent({setSearch, addNote, showModal, setEditMode}) {
                 setSearch(e.target.value)
                 }} prefix={<SearchOutlined />} />
         </div>
-        
-        
-        
-        
     </div>
   )
 }

@@ -41,8 +41,8 @@ function ContentComponent({activeNote, editNote, editMode}) {
           hour: "2-digit",
           minute: "2-digit"
         }): ""}</div>
-        <input className='nameInput' value={activeNote ? activeNote.name : ""} type="text" disabled={editMode ? false : true} placeholder={editMode ? 'Name' : ""} onChange={handleName} autoFocus />
-        <textarea className='textInput' disabled={editMode ? false : true} value={activeNote ? activeNote.text: ""} onChange={handleText} placeholder={editMode ? "Write your note here..." : ""} />
+        {activeNote && <input className='nameInput' value={activeNote ? activeNote.name : ""} type="text" disabled={editMode ? false : true} placeholder={editMode ? 'Name' : ""} onChange={handleName} autoFocus />}
+        {activeNote && <textarea className='textInput' disabled={editMode ? false : true} value={activeNote ? activeNote.text: ""} onChange={handleText} placeholder={editMode ? "Write your note here..." : ""} />}
     </div>
   )
 }
