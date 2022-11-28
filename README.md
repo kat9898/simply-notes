@@ -1,6 +1,9 @@
-# Getting Started with Create React App
+# Getting Started with Simple notes
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is simplified copy of MacOS Notes. There were realised such fuctions as Edit Mode (button 1), Delete Notes (2), Create Notes (3), View Mode (4), Search (5), Navigation on the Sidebar, Sorting by Date of changes.
+
+![notes](https://user-images.githubusercontent.com/39970318/203863918-a640730e-5b4f-4503-955f-a6f217b789ff.png)
+
 
 ## Available Scripts
 
