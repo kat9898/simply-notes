@@ -16,7 +16,8 @@
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4",
     "gh-pages": "^4.0.0",
-    "sass-loader": "^12.3.0"
+    "sass-loader": "^12.3.0",
+    "node-sass": "^7.0.0
   },
   "scripts": {
     "start": "react-scripts start",
