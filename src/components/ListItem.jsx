@@ -6,7 +6,7 @@ import './ListItem.scss';
 
 function ListItem({data}) {
   const getDate = (rowDate) => {
-    if (rowDate != undefined && rowDate != "" ) {
+    if (rowDate !== undefined && rowDate !== "" ) {
       const date = new Date(rowDate);
       const today = new Date(Date.now());
   
